@@ -1,6 +1,7 @@
 import re
 import unidecode
 import pandas as pd
+from pyspark.sql import SparkSession
 
 def leerfichero(string):
     with open(string,"r") as fichero:
@@ -53,8 +54,12 @@ def agrupar_palabras(lista):
     df=df.sort_values("Repeticiones",ascending=False)
     return df
 
-Palabras_vacias=contarpalabras(limpiar_acentos(leerfichero("stop_words.txt").upper()))
+Palabras_vacias=None
+
 
 def stop_words(listas):
-
+    global  Palabras_vacias
+    if Palabras_vacias == None:
+        Palabras_vacias = contarpalabras(limpiar_acentos(leerfichero("stop_words.txt").upper()))
     return list(filter(lambda lista: lista not in Palabras_vacias,listas))
+
