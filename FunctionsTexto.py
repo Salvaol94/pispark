@@ -51,5 +51,10 @@ def agrupar_palabras(lista):
     df.columns= ["Palabras", "Repeticiones"]
     df=df.groupby("Palabras").sum()
     df=df.sort_values("Repeticiones",ascending=False)
-
     return df
+
+Palabras_vacias=contarpalabras(limpiar_acentos(leerfichero("stop_words.txt").upper()))
+
+def stop_words(listas):
+
+    return list(filter(lambda lista: lista not in Palabras_vacias,listas))
